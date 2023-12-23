@@ -82,5 +82,36 @@ public class LoginRegisterApp extends JFrame {
         gbc.gridx = 1;
         gbc.gridy = 2;
         panel.add(loginButton, gbc);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Perform actions when the login button is clicked
+                String username = userField.getText();
+                String password = passwordField.getText();
+
+                if(User.login(username,password)){
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            new HomePageApp(username).setVisible(true);
+                            ((JFrame) SwingUtilities.getWindowAncestor(userField)).dispose();
+                        }
+                    });
+                }
+                else {
+                    JOptionPane.showMessageDialog(
+                            (Component) e.getSource(), // Component to be used as the parent for the dialog
+                            "Login unsuccessful. Please check your username and password.",
+                            "Login Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+                // You can perform username and password validation here
+                // For example, you can use: System.out.println(username + " - " + new String(password));
+            }
+        });
+
+        return panel;
     }
 }
