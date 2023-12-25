@@ -44,9 +44,70 @@ public class LoginRegisterApp extends JFrame {
                 cardLayout.show(cardPanel, "login");
             }
         });
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerButton.setVisible(false);
+                loginButton.setVisible(true);
+                cardLayout.show(cardPanel, "register");
+
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(loginButton);
+        buttonPanel.add(registerButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
     }
+    
 
     private JPanel createRegisterPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel userLabel = new JLabel("Username:");
+        JTextField userField = new JTextField(15);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField(15);
+
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
+        JPasswordField confirmPasswordField = new JPasswordField(15);
+
+        JButton registerButton = new JButton("Register");
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(userLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(userField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(passwordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(confirmPasswordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        panel.add(confirmPasswordField, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(registerButton, gbc);
+
+        
         return null;
     }
 
