@@ -1,3 +1,4 @@
+import MainApp.model.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -61,55 +62,7 @@ public class LoginRegisterApp extends JFrame {
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
-    
 
-    private JPanel createRegisterPanel() {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        JLabel userLabel = new JLabel("Username:");
-        JTextField userField = new JTextField(15);
-
-        JLabel passwordLabel = new JLabel("Password:");
-        JPasswordField passwordField = new JPasswordField(15);
-
-        JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
-        JPasswordField confirmPasswordField = new JPasswordField(15);
-
-        JButton registerButton = new JButton("Register");
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(userLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        panel.add(userField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(passwordLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel.add(passwordField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(confirmPasswordLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        panel.add(confirmPasswordField, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        panel.add(registerButton, gbc);
-
-        
-        return null;
-    }
 
     private JPanel createLoginPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
@@ -175,4 +128,68 @@ public class LoginRegisterApp extends JFrame {
 
         return panel;
     }
+    
+
+    private JPanel createRegisterPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        JLabel userLabel = new JLabel("Username:");
+        JTextField userField = new JTextField(15);
+
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField(15);
+
+        JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
+        JPasswordField confirmPasswordField = new JPasswordField(15);
+
+        JButton registerButton = new JButton("Register");
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(userLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(userField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(passwordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(confirmPasswordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        panel.add(confirmPasswordField, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(registerButton, gbc);
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Perform actions when the register button is clicked
+                String username = userField.getText();
+                String password = passwordField.getText();
+                char[] confirmPassword = confirmPasswordField.getPassword();
+
+                User user=new User(username,password);
+                User.register(user);
+                // You can perform username, password, and confirmPassword validation here
+                // For example, you can use: System.out.println(username + " - " + new String(password) + " - " + new String(confirmPassword));
+            }
+        });
+
+        return panel;
+    }
 }
+
