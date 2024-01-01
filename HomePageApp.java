@@ -1,3 +1,5 @@
+package MainApp;
+
 import MainApp.model.Movie;
 import MainApp.model.User;
 
@@ -108,5 +110,90 @@ public class HomePageApp extends JFrame {
                 updateTable(tableModel);
             }
         });
+        // Create a button for deleting movies
+        JButton deleteButton = new JButton("Delete");
+        // Add an action listener to the delete button
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteToWatchList();
+                // Get the selected row from the table
+                int row = movieTable.getSelectedRow();
+                // If a row is selected, remove it from the table model
+                if (row != -1) {
+                    tableModel.removeRow(row);
+                }
+            }
+        });
+
+        JButton exitButton = new JButton("Exit");
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Close the current JFrame
+                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                        currentFrame.dispose();
+                        // Open the login page
+                        new LoginRegisterApp().setVisible(true);
+                    }
+                });
+
+            }
+        });
+
+// Create a panel for the buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BorderLayout());
+
+// Create panels for the buttons
+        JPanel buttonPanel1 = new JPanel();
+        JPanel buttonPanel2 = new JPanel();
+
+// Set the layout of the panels
+        buttonPanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        buttonPanel2.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+// Add the buttons to the panels
+        buttonPanel1.add(updateButton);
+        buttonPanel1.add(deleteButton);
+        buttonPanel2.add(exitButton);
+
+// Add the panels to the main panel
+        buttonPanel.add(buttonPanel1, BorderLayout.EAST);  // Align to the right
+        buttonPanel.add(buttonPanel2, BorderLayout.WEST);  // Align to the left
+
+// Add the main panel to the bottom of the frame
+        add(buttonPanel, BorderLayout.SOUTH);
+
+
+        // Make the frame visible
+        setVisible(true);
     }
+
+    public void updateTable(DefaultTableModel tableModel){
+        tableModel.setRowCount(0); // Clear existing rows
+        for (int i = 0; i < user.getWatchlist().size(); i++) {
+            Movie movie = user.getWatchlist().get(i);
+            tableModel.addRow(new Object[]{i,movie.getTitle(), movie.getDirector(), movie.getReleaseYear(), movie.getRunningTime()});
+        }
+    }
+
+    private void deleteToWatchList() {
+        int selectedRow = movieTable.getSelectedRow();
+        if (selectedRow != -1) {
+            int movieIndex = (int) movieTable.getValueAt(selectedRow, 0);
+            Movie selectedMovie = watchList.get(movieIndex);
+            watchList.remove(selectedMovie);
+            user.setWatchlist(watchList);
+            user.updateWatchList();
+            JOptionPane.showMessageDialog(this, "Movie deleted to your watch list!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a movie to delete to your watch list.");
+        }
+    }
+
 }
