@@ -2,6 +2,14 @@
 
 This Java Swing application allows users to create accounts, log in, and manage their movie watchlist. Users can add movies to their watchlist. The application stores user data and movie information in text files.
 
+## Explanation of Project by Video
+
+1. Javad Taghiyev explains model folder;
+2. Rasul Suleymanli explains SearchMoviePageApp and RunApp classes;
+3. Raiq Abdurrahmanli explains HomepageApp and LoginRegisterApp classes;
+
+https://youtu.be/SxKizC9uHGA?si=FzWwQYmgopDp_3dv
+
 ## Features
 
 - **User Registration and Login:** Users can create accounts and log in to the application.
